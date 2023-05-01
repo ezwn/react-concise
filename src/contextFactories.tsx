@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ChildrenProps } from "./ChlidrenProps";
+import { ChildrenProps } from "./ChildrenProps";
 
 export class RenderSuspendedException extends Error { }
 

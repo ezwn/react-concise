@@ -1,5 +1,5 @@
 import React from "react";
-import { ChildrenProps } from "./ChlidrenProps";
+import { ChildrenProps } from "./ChildrenProps";
 
 export function createValueFilter(useValue: () => unknown, predicate: (val: unknown) => boolean): React.FC<ChildrenProps> {
     return ({ children }) => {
