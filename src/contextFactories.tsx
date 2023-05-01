@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { ChildrenProps } from "./ChlidrenProps";
 
 export class RenderSuspendedException extends Error { }
 
@@ -12,7 +13,7 @@ export function createSimpleContext<P, V>(
 ) {
   const Context = React.createContext<V>(initialValue);
 
-  const Provider: React.FC<P> = (props) => {
+  const Provider: React.FC<P & ChildrenProps> = (props) => {
     try {
       const value = valueProvider(props);
 
@@ -24,7 +25,7 @@ export function createSimpleContext<P, V>(
     }
   };
 
-  const MockProvider: React.FC<{ mock: V }> = ({ mock, children }) => {
+  const MockProvider: React.FC<{ mock: V } & ChildrenProps> = ({ mock, children }) => {
     return (<Context.Provider value={mock}>
       {children}
     </Context.Provider>);

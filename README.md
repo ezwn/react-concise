@@ -1,8 +1,8 @@
-# React-Utils
+# react-concise
 
-**Version**: 2.0.1-2023-04-30
+**Version**: 2.0.2-2023-05-01
 
-A simple library for React, providing:
+A set of tools making React coding more concise:
 
 - context factories, making context creation very easy in some cases.
 - context filters.
