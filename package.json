@@ -1,6 +1,6 @@
 {
   "name": "react-concise",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "keywords": ["library"],
   "description": "Unopiniated generic helpers for React.",
   "author": "Nicolas Enzweiler",

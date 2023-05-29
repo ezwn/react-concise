@@ -1,6 +1,6 @@
 # react-concise
 
-**Version**: 2.1.0-2023-05-01
+**Version**: 2.1.1-2023-05-29
 
 A set of tools making React coding more concise:
 
