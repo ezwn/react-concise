@@ -1,8 +1,8 @@
 {
   "name": "react-concise",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "keywords": ["library"],
-  "description": "Unopiniated generic helpers for React.",
+  "description": "A set of tools simplifying some React operations.",
   "author": "Nicolas Enzweiler",
   "license": "MIT",
   "main": "dist/cjs/index.js",
@@ -28,7 +28,7 @@
     "@rollup/plugin-url": "^7.0.0",
     "@testing-library/react": "^11.2.7",
     "@types/jest": "^29.2.0",
-    "@types/react": "^17.0.14",
+    "@types/react": "^18.2.0",
     "babel-jest": "^29.2.2",
     "babel-loader": "^9.0.0",
     "identity-obj-proxy": "^3.0.0",
@@ -40,7 +40,7 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "style-loader": "^3.3.1",
     "tslib": "^2.4.0",
-    "typescript": "^4.9.5",
+    "typescript": "^5.1.3",
     "webpack": "^5.74.0"
   },
   "peerDependencies": {
