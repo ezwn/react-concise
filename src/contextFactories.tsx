@@ -99,7 +99,7 @@ export function createSynchronizedStateContext<S, P = unknown>(
           }
         };
       }
-    }, [syncFn]);
+    }, [syncFn, props]);
 
     return state;
   };
