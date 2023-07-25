@@ -74,14 +74,14 @@ export function createStateContext<T>(moduleName: string, initialValue: T) {
 export const NEVER_REPEAT = 0;
 
 export function createSynchronizedStateContext<S, P = unknown>(
-  useSyncFn: () => (props: P) => Promise<S>,
+  useSyncFn: (props: P) => (props: P) => Promise<S>,
   initialValue: S,
   syncRepeatPeriod = NEVER_REPEAT
 ) {
 
   const useValue = (props: P) => {
     const [state, setState] = useState<S>(initialValue);
-    const syncFn = useSyncFn();
+    const syncFn = useSyncFn(props);
 
     useEffect(() => {
       async function synchronize() {
