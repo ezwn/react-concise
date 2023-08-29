@@ -74,7 +74,7 @@ export function createStateContext<T>(moduleName: string, initialValue: T) {
 export const NEVER_REPEAT = 0;
 
 export function createSynchronizedStateContext<S, P = unknown>(
-  useSyncFn: (props: P) => (props: P) => Promise<S>,
+  useSyncFn: (props: P) => () => Promise<S>,
   initialValue: S,
   syncRepeatPeriod = NEVER_REPEAT
 ) {
@@ -85,7 +85,7 @@ export function createSynchronizedStateContext<S, P = unknown>(
 
     useEffect(() => {
       async function synchronize() {
-        setState(await syncFn(props));
+        setState(await syncFn());
       }
 
       synchronize();
@@ -99,7 +99,7 @@ export function createSynchronizedStateContext<S, P = unknown>(
           }
         };
       }
-    }, [syncFn, props]);
+    }, [syncFn]);
 
     return state;
   };
