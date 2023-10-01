@@ -38,9 +38,9 @@ export function createSimpleContext<P, V>(
     Provider,
     useContext: () => {
       const value = useContext(Context);
-      
+
       if (value === undefined) {
-        throw("<undefined> is a reserved value for this type of context. This means you might have forgotten to define a provider. If you want to return nothing, use <null> instead of <undefined>.")
+        throw ("<undefined> is a reserved value for this type of context. This means you might have forgotten to define a provider. If you want to return nothing, use <null> instead of <undefined>.")
       }
 
       return value;
@@ -72,6 +72,12 @@ export function createStateContext<T>(moduleName: string, initialValue: T) {
  */
 
 export const NEVER_REPEAT = 0;
+export type SYNC_STATE_STATUS = 'UNINITIALIZED' | 'SYNCING' | 'READY';
+
+export interface StatusRouterProps extends ChildrenProps {
+  uninitialized?: React.ReactNode;
+  syncing?: React.ReactNode;
+}
 
 export function createSynchronizedStateContext<S, P = unknown>(
   useSyncFn: (props: P) => () => Promise<S>,
@@ -80,12 +86,15 @@ export function createSynchronizedStateContext<S, P = unknown>(
 ) {
 
   const useValue = (props: P) => {
-    const [state, setState] = useState<S>(initialValue);
+    const [value, setValue] = useState<S>(initialValue);
+    const [status, setStatus] = useState<SYNC_STATE_STATUS>('UNINITIALIZED');
     const syncFn = useSyncFn(props);
 
     useEffect(() => {
       async function synchronize() {
-        setState(await syncFn());
+        setStatus('SYNCING');
+        setValue(await syncFn());
+        setStatus('READY');
       }
 
       synchronize();
@@ -101,15 +110,31 @@ export function createSynchronizedStateContext<S, P = unknown>(
       }
     }, [syncFn]);
 
-    return state;
+    return { value, status };
   };
 
-  return createSimpleContext(
+  const context = createSimpleContext(
     useValue,
-    initialValue,
+    { value: initialValue, status: 'UNINITIALIZED' },
   );
+
+  const StatusRouter: React.FC<StatusRouterProps> = ({ children, uninitialized, syncing }) => {
+    const { status } = context.useContext();
+    switch (status) {
+      case 'READY':
+        return <>{children}</>;
+      case 'UNINITIALIZED':
+        return <>{uninitialized || syncing}</>;
+      case 'SYNCING':
+        return <>{syncing}</>;
+      default:
+        return undefined;
+    }
+  }
+
+  return { ...context, StatusRouter };
 }
 
-const dontCallMeFn = (name: string) => () => { 
+const dontCallMeFn = (name: string) => () => {
   console.error(`${name} shouldn't be called`)
 };
