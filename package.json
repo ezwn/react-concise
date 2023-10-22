@@ -1,6 +1,6 @@
 {
   "name": "react-concise",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "keywords": ["library"],
   "description": "A set of tools simplifying some React operations.",
   "author": "Nicolas Enzweiler",
